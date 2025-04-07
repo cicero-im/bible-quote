@@ -1,6 +1,6 @@
-import requests
 import re
 import pyttsx3
+from security import safe_requests
 
 def get_bible(user_input):
     pattern = r"Quote me Book of (\w+(?: \w+)*) Chapter (\d+) and Verse (\d+)"
@@ -11,7 +11,7 @@ def get_bible(user_input):
 
     book, chapter, verse = match.groups()
     url = f"https://bible-api.com/{book.replace(' ', '+')}+{chapter}:{verse}"
-    response = requests.get(url)
+    response = safe_requests.get(url)
     
     if response.status_code == 200:
         data = response.json()
